@@ -267,6 +267,60 @@ class ElemeApp(object):
             return ids,count,categorys
 
 
+    def get_ids_dict(self, lat, lng, city_id):
+        '''
+        返回字典格式数据
+        :return:
+        :rtype:
+        '''
+        while True:
+            ua = self.random_useragent_eleme()
+            xdeviceinfo = self.gen_x_deviceinfo()
+            headers = {
+                'user-agent': ua,
+                'x-deviceinfo': xdeviceinfo
+            }
+            url = 'https://restapi.ele.me/shopping/v2/restaurant/category?latitude={}&city_id={}&longitude={}'.format(lat,city_id,lng)
+            try:
+                resp = requests.get(url,headers=headers)
+            except Exception as e:
+                log.error(e)
+                time.sleep(5)
+                continue
+
+
+
+            items = resp.json()
+            ids = []
+            category = []
+            categorys = ''
+            count = 0
+            for item in items:
+                if item['name'] == '全部商家':
+                    count = item['count']
+                    continue
+                filter = ['厨房生鲜', '水果', '医药健康', '鲜花绿植', '商店超市']
+                if item['name'] in filter:
+                    continue
+                infos = item['sub_categories']
+                for info in infos:
+                    if '全部' in info['name']:
+                        continue
+                    elif info['count'] == 0:
+                        continue
+                    elif info['count'] != 0:
+                        if info['name'] in category:
+                            continue
+                        category.append(info['name'])
+                        print(info['id'], info['name'], info['count'])
+                        if info['count'] < 14:
+                            categorys = categorys + 'restaurant_category_ids%5B%5D={}&'.format(info['id'])
+                            continue
+                        name = info['name']
+                        ids[f'{name}'] = info['id']
+
+            return ids,count,categorys
+
     '''
             广州供外部调用
         '''
