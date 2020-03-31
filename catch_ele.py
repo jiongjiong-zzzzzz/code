@@ -13,7 +13,7 @@ import time
 import pymongo
 import requests
 import random
-import redis_
+import redis_operating
 import datetime
 import settings
 class catchEle(object):
@@ -30,7 +30,7 @@ class catchEle(object):
         self.couser_point = self.db[CITY_POINT]
 
         self.session = requests.session()
-        self.r = redis_.UrlDB()
+        self.r = redis_operating.UrlDB()
         self._id = ''
         self.today = datetime.date.today()
         self.check = 0

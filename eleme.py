@@ -12,7 +12,7 @@ from copy import copy
 from urllib import parse
 import base64
 import pymongo
-import redis_
+import redis_operating
 import settings
 from fake_useragent import UserAgent
 headers = {
@@ -42,7 +42,7 @@ class ElemeApp(object):
         self.ua = ''
         self.proxy = None
         self.version = '8.12.0'
-        self.r = redis_.UrlDB()
+        self.r = redis_operating.UrlDB()
 
     def mobile_send_code(self, mobile, lat, lng):
         url = 'https://restapi.ele.me/eus/login/mobile_send_code'
