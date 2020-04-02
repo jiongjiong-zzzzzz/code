@@ -13,8 +13,7 @@ from urllib import parse
 import base64
 import pymongo
 import redis_operating
-import settings
-from fake_useragent import UserAgent
+import abuyun
 headers = {
     'user-agent': '',
     'cache-control': 'no-cache',
@@ -291,7 +290,7 @@ class ElemeApp(object):
 
 
             items = resp.json()
-            ids = []
+            ids = {}
             category = []
             categorys = ''
             count = 0
@@ -312,7 +311,6 @@ class ElemeApp(object):
                         if info['name'] in category:
                             continue
                         category.append(info['name'])
-                        print(info['id'], info['name'], info['count'])
                         if info['count'] < 14:
                             categorys = categorys + 'restaurant_category_ids%5B%5D={}&'.format(info['id'])
                             continue
@@ -345,7 +343,7 @@ class ElemeApp(object):
             resp = seesion.get(url, headers=headers, proxies=self.proxy, timeout=10)
             return resp.json()
         except requests.exceptions.ConnectTimeout:
-            self.proxy = tool.get_proxy(self.local_proxy)
+            #self.proxy = tool.get_proxy(self.local_proxy)
             return None
         except:
             log.exception('login_by_mobile error.')

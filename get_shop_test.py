@@ -89,33 +89,28 @@ class catchEle(object):
 
 
 
-    def catch_data(self,items):
-        for item in items:
-            '''
-            参数赋值
-            '''
-            shop_id = item['id']
-            lat,lng = '',''
-            self.session.cookies = self.get_cookie_fromMongo()
-            try:
-                resp = self.ele.get_shop_restaurants(lat, lng,shop_id,self.session)
-                print(resp)
-            except:
-                print(resp)
-            address = resp['address']
-            # #商家电话
-            phone = resp['phone']
+    def catch_data(self):
+        shop_id = 'E12446204100718745723'
+        lat,lng = '22.479425','113.891625'
+        self.session.cookies = self.get_cookie_fromMongo()
+        try:
+            resp = self.ele.get_shop_restaurants(lat, lng,shop_id,self.session)
+            print(resp)
+        except:
+            print(resp)
+        address = resp['address']
+        # #商家电话
+        phone = resp['phone']
 
-            print(phone,address)
+        print(phone,address)
 
     def get_data(self):
         '''
         : 获取从mongdb存储的经纬度坐标
         :return:items:
         :rtype: '''
-        items = self.getLatlon()
         self.ele.change_device()
-        self.catch_data(items)
+        self.catch_data()
 
     def main(self):
         self.get_data()

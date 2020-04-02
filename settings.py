@@ -9,24 +9,30 @@
 '''
 mongdb集合
 '''
+
+IP = '127.0.0.1'
+PORT = 27017
+
+DB = 'latlon'
 #储存店铺数据的集合
-SHOP_DATA = 'guangzhouData_3_30'
+SHOP_DATA = 'hangzhouData_4_1_1'
 #储存cookie信息的集合
 COOKIE = 'cookies'
 #储存经纬度的集合
-CITY_POINT  = 'guangzhou_city_point_3_26'
+CITY_POINT  = 'city_point_4_1'
 #城市名称
-CITY = '广州'
+CITY = '杭州'
 
 '''
 REDIS
 '''
 
 #去重set集合
-REDIS_SHOP_NAME = 'guangzhou_shop_id_3_30'
+REDIS_SHOP_NAME = 'hangzhou_shop_id_4_1'
 #url去重
-REDIS_SHOP_URL = 'guangzhou_shop_url_3_30'
-
+REDIS_SHOP_URL = 'hangzhou_shop_url_4_1'
+#
+REDIS_CATEGORY = 'hangzhou_category_4_1'
 
 
 data = {
