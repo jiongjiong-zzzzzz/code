@@ -80,7 +80,7 @@ class operation:
 
     def lat_status(self, lat, lng):
         self.couser_point.find_one_and_update({"latitude": lat, "longitude": lng},
-                                              {'$set': {'status': '0'}} )
+                                              {'$set': {'status': '1'}} )
 
     '''
     从point表获取所有的经纬度，返回一个集合
