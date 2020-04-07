@@ -13,8 +13,7 @@ from urllib import parse
 import base64
 import pymongo
 import redis_operating
-import settings
-from fake_useragent import UserAgent
+import abuyun
 headers = {
     'user-agent': '',
     'cache-control': 'no-cache',
@@ -291,7 +290,7 @@ class ElemeApp(object):
 
 
             items = resp.json()
-            ids = []
+            ids = {}
             category = []
             categorys = ''
             count = 0
@@ -312,7 +311,6 @@ class ElemeApp(object):
                         if info['name'] in category:
                             continue
                         category.append(info['name'])
-                        print(info['id'], info['name'], info['count'])
                         if info['count'] < 14:
                             categorys = categorys + 'restaurant_category_ids%5B%5D={}&'.format(info['id'])
                             continue
@@ -345,7 +343,7 @@ class ElemeApp(object):
             resp = seesion.get(url, headers=headers, proxies=self.proxy, timeout=10)
             return resp.json()
         except requests.exceptions.ConnectTimeout:
-            self.proxy = tool.get_proxy(self.local_proxy)
+            #self.proxy = tool.get_proxy(self.local_proxy)
             return None
         except:
             log.exception('login_by_mobile error.')
@@ -417,6 +415,21 @@ class ElemeApp(object):
         })
         try:
             resp = session.get(url, headers=headers, proxies=self.proxy, timeout=3)
+            return resp.json()
+        except requests.exceptions.ConnectTimeout:
+            self.proxy = tool.get_proxy(self.local_proxy)
+            return None
+        except:
+            log.exception('login_by_mobile error.')
+            return None
+
+    def get_shop_mini(self,shopId):
+        url = 'https://restapi.ele.me/booking/v2/cart_client'
+        data = {"add_on_type": 0, "come_from": "mini_app", "extra_action": [], "geohash": "", "operating_entities": [],
+                "operating_packages": [], "operating_tying_entities": [], "restaurant_id": shopId, "scene": 0,
+                "tying_supervip": 0, "user_id": 0}
+        try:
+            resp =requests.post(url, data=data)
             return resp.json()
         except requests.exceptions.ConnectTimeout:
             self.proxy = tool.get_proxy(self.local_proxy)

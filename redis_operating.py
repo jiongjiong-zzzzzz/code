@@ -1,6 +1,8 @@
 import redis
 import settings
+
 class UrlDB:
+
     '''Use LevelDB to store URLs what have been done(succeed or faile)
     '''
     status_failure = b'0'
@@ -11,6 +13,7 @@ class UrlDB:
         self.r = redis.Redis(connection_pool=pool)
         self.REDIS_SHOP_NAME = settings.REDIS_SHOP_NAME
         self.REDIS_SHOP_URL = settings.REDIS_SHOP_URL
+        self.REDIS_CATEGORY = settings.REDIS_CATEGORY
     def saveId(self,shop_id):
         if isinstance(shop_id, str):
             shop_id = shop_id.encode('utf8')
@@ -24,18 +27,27 @@ class UrlDB:
         if isinstance(shop_id, str):
             shop_id = shop_id.encode('utf8')
         try:
-            attr = self.r.sadd('guangzhou_shop_id_3_30',shop_id)
+            attr = self.r.sadd(self.REDIS_SHOP_NAME,shop_id)
             return attr
         except:
             pass
         return False
+    def has_category(self, shop_id):
 
+        if isinstance(shop_id, str):
+            shop_id = shop_id.encode('utf8')
+        try:
+            attr = self.r.sadd(self.REDIS_CATEGORY,shop_id)
+            return attr
+        except:
+            pass
+        return False
     def has_url(self, url):
 
         if isinstance(url, str):
             shop_id = url.encode('utf8')
         try:
-            attr = self.r.sadd('guangzhou_shop_url_3_30',shop_id)
+            attr = self.r.sadd(self.REDIS_SHOP_URL,shop_id)
             return attr
         except:
             pass
