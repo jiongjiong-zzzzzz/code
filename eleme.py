@@ -422,6 +422,21 @@ class ElemeApp(object):
         except:
             log.exception('login_by_mobile error.')
             return None
+
+    def get_shop_mini(self,shopId):
+        url = 'https://restapi.ele.me/booking/v2/cart_client'
+        data = {"add_on_type": 0, "come_from": "mini_app", "extra_action": [], "geohash": "", "operating_entities": [],
+                "operating_packages": [], "operating_tying_entities": [], "restaurant_id": shopId, "scene": 0,
+                "tying_supervip": 0, "user_id": 0}
+        try:
+            resp =requests.post(url, data=data)
+            return resp.json()
+        except requests.exceptions.ConnectTimeout:
+            self.proxy = tool.get_proxy(self.local_proxy)
+            return None
+        except:
+            log.exception('login_by_mobile error.')
+            return None
     def get_shop_restaurants_menu(self, lat, lng,shopId,session):
 
         url = '	https://restapi.ele.me/shopping/v2/menu?restaurant_id={}'.format(shopId)

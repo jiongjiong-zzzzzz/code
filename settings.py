@@ -15,24 +15,24 @@ PORT = 27017
 
 DB = 'latlon'
 #储存店铺数据的集合
-SHOP_DATA = 'hangzhouData_4_1_1'
+SHOP_DATA = 'guangzhouData_4_6'
 #储存cookie信息的集合
 COOKIE = 'cookies'
 #储存经纬度的集合
 CITY_POINT  = 'city_point_4_1'
 #城市名称
-CITY = '杭州'
+CITY = '广州'
 
 '''
 REDIS
 '''
 
 #去重set集合
-REDIS_SHOP_NAME = 'hangzhou_shop_id_4_1'
+REDIS_SHOP_NAME = 'guangzhou_shop_id_4_6'
 #url去重
-REDIS_SHOP_URL = 'hangzhou_shop_url_4_1'
+REDIS_SHOP_URL = 'guangzhou_shop_url_4_6'
 #
-REDIS_CATEGORY = 'hangzhou_category_4_1'
+REDIS_CATEGORY = 'guangzhou_category_4_6'
 
 
 data = {
