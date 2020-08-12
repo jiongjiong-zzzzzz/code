@@ -19,13 +19,14 @@ lat, lng = '30.7', '121.288'
 def test_c(session):
     print('测试')
     resp,resp_json = ele.get_restaurants_test(lat, lng, '2', '5', 0, session)
+    print(resp_json)
     if resp != 200:
         print(resp_json)
         print('请求失败：'+str(resp))
         return False
     print('测试cookie成功访问一次')
     time.sleep(1)
-    resp_, resp_json = ele.get_restaurants_test(lat, lng, '2', '5', 0, session)
+    resp_, resp_json = ele.get_restaurants_test(lat, lng, '2', '5', 20, session)
     #resp_ ,resp_json= ele.get_shop_restaurants_test(lat, lng,shop_id,session)
 
     if resp_ != 200:

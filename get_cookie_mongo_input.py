@@ -16,8 +16,8 @@ import base64
 import pymongo
 import requests
 import cookie_test
-connection = pymongo.MongoClient('127.0.0.1',27017)
-db=connection.latlon
+connection = pymongo.MongoClient('192.168.1.167',27017)
+db=connection['city']
 post = db.cookies
 
 ele = eleme.ElemeApp()
